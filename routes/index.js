@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 var upload = require('../multer/storage');
 var Image = require('../models/model');
 var mongoURI = 'mongodb://localhost:27017/ocr_summariser';
+var fs = require('fs');
 // Create mongo connection
 const conn = mongoose.createConnection(mongoURI);
 
@@ -30,33 +31,44 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'OCR-summeriser' });
 });
 
-router.post('/summarise', upload.single('file'), function(req, res, next) {
+//Use of async function to execute according to a promise
+router.post('/summarise', upload.single('file'), async function(req, res, next) {
     var image = new Image();
     image.image = req.file.filename;
-    image.save(function(err) {
+    await image.save(function(err) {  //await
         if (err) console.log(err);
         else {
             console.log("Successfuly Saved in Database");
-            //for node-tesseract-ocr package
-            var config = {
-                lang: "eng",
-                oem: 1,
-                psm: 3
-            }
-            console.log(image);
-            tesseractjs
-            //folder access
-            // .recognize('../public/uploads/file-' + req.file.originalname, config)
-            //database access
-                .recognize(image.image, config)
-                .then(text => {
-                    console.log('Result:', text)
-                })
-                .catch(err => {
-                    console.log('error:', err)
-                })
         }
     });
+
+//for node-tesseract-ocr package
+    var config = {
+        lang: "eng",
+        oem: 1,
+        psm: 3
+    }
+    console.log(image);
+    console.log(__dirname);
+    await tesseractjs //await 
+    //folder access
+    .recognize(__dirname + '/../public/uploads/file-' + req.file.originalname, config)
+    //database access
+        // .recognize(image.image, config)
+        .then(text => {
+            // console.log('Result:', text)
+            
+            //Save the output to a txt file inside public/output
+            fs.writeFile(__dirname + '/../public/output/file-' + req.file.originalname + '.txt', text, function(err) {
+            if(err) {
+                return console.log(err);
+                }
+            res.send("The text of the image file is extracted and saved inside public/output/"+ req.file.originalname + '.txt');
+         }); 
+        })
+        .catch(err => {
+            console.log('error:', err)
+        })
     // var config = {
     //     lang: "eng",
     //     oem: 1,
