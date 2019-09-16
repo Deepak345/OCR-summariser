@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <h1>
+        <%= subject %>
+    </h1>
+    <p id="summary">
+        <%=final%>
+    </p>
+    <label>Filename:</label>
+    <input type="text" id="filename" value="summary.doc" />
+    <button onclick="Download()">DOWNLOAD</button>
+</body>
+<script src="/javascripts/FileSaver.min.js"></script>
+<script>
+    var final = final;
+    Download = function() {
+        //generating summary file to download
+        var text = document.getElementById("summary").textContent;
+        var filename = document.getElementById('filename').value;
+
+        //generating a blob object
+        var blob = new Blob([text], {
+            type: "text/plain;charset=utf-8"
+        });
+
+        //use library to generate download
+        saveAs(blob, filename);
+
+    };
+</script>
+
+</html>

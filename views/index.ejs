@@ -6,6 +6,9 @@
         <%= title %>
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 </head>
 
 <body>
@@ -16,7 +19,9 @@
         <%= title %>
     </p>
     <form action="/summarise" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" id="file" class="form-control" required>
+        <label class="cameraButton" style="opacity:0.1;"><i style = "color:blue;" class = "fa fa-camera-retro" ></i>
+        <input type="file" name="file" id="file" class="form-control" accept="image/*;capture=camera"required>
+        </label>
         <button type="submit">Submit</button>
     </form>
 </body>

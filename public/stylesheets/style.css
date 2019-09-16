@@ -1,8 +1,37 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+label.cameraButton {
+    display: inline-block;
+    margin: 1em 0;
+    /* Styles to make it look like a button */
+    padding: 0.5em;
+    border: 2px solid #666;
+    border-color: #EEE #CCC #CCC #EEE;
+    background-color: #DDD;
+}
+
+
+/* Look like a clicked/depressed button */
+
+label.cameraButton:active {
+    border-color: #CCC #EEE #EEE #CCC;
+}
+
+
+/* This is the part that actually hides the 'Choose file' text box for camera inputs */
+
+label.cameraButton input[accept*="camera"] {
+    display: none;
+    color: white;
+}
+
+.fa {
+    font-size: 9ex;
 }
