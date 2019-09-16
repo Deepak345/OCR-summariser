@@ -16,8 +16,6 @@ var fs = require('fs');
 // Create mongo connection
 const conn = mongoose.createConnection(mongoURI);
 const { spawn } = require('child_process');
-//python-shell
-// let { PythonShell } = require('python-shell')
 
 conn.once('open', () => {});
 
