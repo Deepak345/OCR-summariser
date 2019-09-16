@@ -15,8 +15,9 @@ var mongoURI = 'mongodb://localhost:27017/ocr_summariser';
 var fs = require('fs');
 // Create mongo connection
 const conn = mongoose.createConnection(mongoURI);
+const { spawn } = require('child_process');
 //python-shell
-let { PythonShell } = require('python-shell')
+// let { PythonShell } = require('python-shell')
 
 conn.once('open', () => {});
 
@@ -50,11 +51,19 @@ router.post('/summarise', upload.single('file'), async function(req, res, next) 
     await tesseractjs //await
         .recognize(__dirname + '/../public/uploads/file-' + req.file.originalname, config)
         .then(text => {
-            res.render('output', { title: title, subject: "The Summary", final: text });
-
-        })
+                const process = spawn('python3', ['./text_summarisation.py', text]);
+            
+                process.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
+                res.render('output', { title: title, subject: "The Summary", final: data });
+                });
+            
+                process.stderr.on('data', (data) => {
+                console.log(`stderr: ${data}`);
+                });
+            })
         .catch(err => {
-            console.log('error:', err)
+            console.log('ERROR:', err)
         })
 });
 module.exports = router;
