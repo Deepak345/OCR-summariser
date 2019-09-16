@@ -14,7 +14,33 @@ where path = the directory where the OCR-SUMMARISER folder is downloaded/cloned.
 npm install
 ```
 
-### Prerequisites
+### Prerequisites for summarisation
+
+* install python3
+* install pip3
+* install virtualenv using pip
+```
+sudo pip3 install virtualenv 
+```
+* Create a Virtual environment, install depedencies. Execute the Following commands in the base directory of the project:-
+```
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+deactivate
+```
+The above steps are needed to be performed only the first time.
+
+Subsequently, execute only the following command in the base directory:-
+```
+source venv/bin/activate
+```
+Later, the virtual environment can be deactivated after the work with project is over:-
+```
+deactivate
+```
+
+### Prerequisites for node server
 
 Make sure you have nodejs installed locally in your system.
 You should also have mongodb installed in your system.
