@@ -49,17 +49,19 @@ router.post('/summarise', upload.single('file'), async function(req, res, next) 
     await tesseractjs //await
         .recognize(__dirname + '/../public/uploads/file-' + req.file.originalname, config)
         .then(text => {
-                const process = spawn('python3', ['./text_summarisation.py', text]);
-            
-                process.stdout.on('data', (data) => {
+            //for those who have python3 command
+            // const process = spawn('python3', ['./text_summarisation.py', text]);
+            //for those who have default python as python3
+            const process = spawn('python', ['./text_summarisation.py', text]);
+            process.stdout.on('data', (data) => {
                 console.log(`stdout: ${data}`);
                 res.render('output', { title: title, subject: "The Summary", final: data });
-                });
-            
-                process.stderr.on('data', (data) => {
+            });
+
+            process.stderr.on('data', (data) => {
                 console.log(`stderr: ${data}`);
-                });
-            })
+            });
+        })
         .catch(err => {
             console.log('ERROR:', err)
         })

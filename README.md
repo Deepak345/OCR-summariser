@@ -2,14 +2,27 @@
 
 ## Getting Started
 
-Git clone or download this Project as zip and then open terminal and write 
+Git clone or download this Project as zip. <br>
+ Execute the following commands in the base directory:-
 
+### Prerequisites for node server
+
+* install nodejs
+* install mongodb
+* install tesseract
+### Installing tesseract in Ubuntu
 ```
-cd ./path/OCR-SUMMARISER
+sudo apt-get install tesseract-ocr
 ```
+### Installing tesseract in Windows 
 
-where path = the directory where the OCR-SUMMARISER folder is downloaded/cloned.
+## [Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)
 
+* install nodemon
+```
+npm i -g --save nodemon
+``` 
+* import the node modules
 ```
 npm install
 ```
@@ -20,42 +33,35 @@ npm install
 * install pip3
 * install virtualenv using pip
 ```
-sudo pip3 install virtualenv 
+pip3 install virtualenv 
 ```
-* Create a Virtual environment, install depedencies. Execute the Following commands in the base directory of the project:-
+* Create a Virtual environment, install depedencies in the base directory of the project:-
 ```
 virtualenv venv
-source venv/bin/activate
+source venv/bin/activate(for ubuntu)
+venv/Scripts/activate(for windows)
 pip install -r requirements.txt
+python -m nltk.downloader punkt
 deactivate
 ```
 The above steps are needed to be performed only the first time.
 
-Subsequently, execute only the following command in the base directory:-
+
+## Running the Program
+
 ```
 source venv/bin/activate
-```
-Later, the virtual environment can be deactivated after the work with project is over:-
-```
-deactivate
-```
-
-### Prerequisites for node server
-
-Make sure you have nodejs installed locally in your system.
-You should also have mongodb installed in your system.
-
-After the dataset gets imported run in your terminal
-
-```
 nodemon app
 ```
 
 When it shows The app in running in port 8000
 Open your browser and goto
-
 ```
 localhost:8000
+```
+Later, the virtual environment can be deactivated when the work with project is over:-
+```
+deactivate
 ```
 
 
@@ -64,10 +70,7 @@ localhost:8000
 * [Nodejs](https://nodejs.org/en/docs/) - The web framework used
 * [Expressjs](https://expressjs.com/en/api.html) - Used for the backend servers
 * [Mongodb](https://docs.mongodb.com/) - Database used
-<!-- * [socket.io](https://socket.io/docs/) - for creating chatrooms
-* [Bootstrap](https://getbootstrap.com/docs/4.1/getting-started/introduction/) - For styling and making the site responsive -->
 * [Javascript](https://devdocs.io/javascript/) - used for scripting
-<!-- * [jQuery](https://api.jquery.com/) - used to make js simpler -->
 * [ejs](http://ejs.co/) - It is the templating lirary used
 * [CSS](https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS) - It is used for styling purpose
 
@@ -78,11 +81,3 @@ localhost:8000
 * **Siddhant Mund** - Backend Developer(https://github.com/iamsid2)
 * **Deepak Senapati** - Data Analyst(https://github.com/deepak345)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
