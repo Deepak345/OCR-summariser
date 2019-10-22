@@ -24,7 +24,10 @@ var title = "OCR-Summariser";
 var final = {}
     /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: title });
+    var data = {}
+    var image = {}
+    console.log(data, image)
+    res.render('index', { title: title, subject: "Save Your Time", summary: data, image: image });
 });
 
 //Use of async function to execute according to a promise
@@ -47,15 +50,17 @@ router.post('/summarise', upload.single('file'), async function(req, res, next) 
     console.log(image);
     console.log(__dirname);
     await tesseractjs //await
-        .recognize(__dirname + '/../public/uploads/file-' + req.file.originalname, config)
+        .recognize(__dirname + '/../public/uploads/file_for_summary' + path.extname(req.file.originalname), config)
         .then(text => {
+            var image = __dirname + '/../public/uploads/file_for_summary' + path.extname(req.file.originalname);
             //for those who have python3 command
             // const process = spawn('python3', ['./text_summarisation.py', text]);
             //for those who have default python as python3
             const process = spawn('python', ['./text_summarisation.py', text]);
             process.stdout.on('data', (data) => {
                 console.log(`stdout: ${data}`);
-                res.render('output', { title: title, subject: "The Summary", final: data });
+                console.log(image)
+                res.render('output', { title: title, subject: "The Summary", summary: data, image: image });
             });
 
             process.stderr.on('data', (data) => {
