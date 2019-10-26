@@ -42,6 +42,7 @@ source venv/bin/activate(for ubuntu)
 venv/Scripts/activate(for windows)
 pip install -r requirements.txt
 python -m nltk.downloader punkt
+python -m nltk.downloader stopwords
 deactivate
 ```
 The above steps are needed to be performed only the first time.

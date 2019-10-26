@@ -57,4 +57,4 @@ data = data.replace('\n', ' ')
 text,df = preprocessing(data)
 summary = summary(text, df)
 
-print(data + '\n' + summary)
+print(summary)
