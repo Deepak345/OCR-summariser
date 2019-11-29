@@ -9,7 +9,6 @@ var Grid = require('gridfs-stream');
 dotenv.config()
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var upload = require('../multer/storage');
 var Image = require('../models/model');
 var mongoURI = 'mongodb://localhost:27017/ocr_summariser';
 var fs = require('fs');
@@ -22,6 +21,36 @@ conn.once('open', () => {});
 var title = "OCR-Summariser";
 //for output of summary
 var final = {}
+
+// Init gfs
+let gfs;
+
+conn.once('open', () => {
+  // Init stream
+  gfs = Grid(conn.db, mongoose.mongo);  
+  gfs.collection('uploads');
+});
+
+// Create storage engine
+var storage = new GridFsStorage({
+  url: mongoURI,
+  file: (req, file) => {
+      console.log(file)
+    if(file){
+        return new Promise((resolve, reject) => {
+            const filename = file.originalname;
+            const fileInfo = {
+            filename: filename,
+            bucketName: 'uploads'
+            };
+            resolve(fileInfo);
+        });
+    }
+    else console.log()
+}
+});
+
+var upload = multer({ storage });
     /* GET home page. */
 router.get('/', function(req, res, next) {
     var data = {}
@@ -47,15 +76,12 @@ router.post('/summarise', upload.single('file'), async function(req, res, next) 
         oem: 1,
         psm: 3
     }
-    console.log(image);
-    console.log(__dirname);
+    // console.log(image);
+    // console.log(__dirname);
     await tesseractjs //await
         .recognize(__dirname + '/../public/uploads/file_for_summary' + path.extname(req.file.originalname), config)
         .then(text => {
             var image = __dirname + '/../public/uploads/file_for_summary' + path.extname(req.file.originalname);
-            //for those who have python3 command
-            // const process = spawn('python3', ['./text_summarisation.py', text]);
-            //for those who have default python as python3
             const process = spawn('python', ['./text_summarisation.py', text]);
             process.stdout.on('data', (data) => {
                 console.log(`stdout: ${data}`);

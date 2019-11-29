@@ -17,10 +17,10 @@ html{
   border-radius: 2px;
   box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.3);
   background: #3A92AF;
-  background: -webkit-linear-gradient(bottom left, #3A92AF 0%, #5CA05A 100%);
-  background: -moz-linear-gradient(bottom left, #3A92AF 0%, #5CA05A 100%);
-  background: -o-linear-gradient(bottom left, #3A92AF 0%, #5CA05A 100%);
-  background: linear-gradient(to top right, #3A92AF 0%, #5CA05A 100%); 
+  background: -webkit-linear-gradient(bottom left, #3A92AF 0%, #03a1fc 100%);
+  background: -moz-linear-gradient(bottom left, #3A92AF 0%, #03a1fc 100%);
+  background: -o-linear-gradient(bottom left, #3A92AF 0%, #03a1fc 100%);
+  background: linear-gradient(to top right, #3A92AF 0%, #03a1fc 100%); 
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3A92AF', endColorstr='#5CA05A',GradientType=1 );
   color: #fff;
 	font-family: 'Open Sans', Helvetica, sans-serif;
@@ -102,7 +102,7 @@ html{
 	height: 40px;
 	left: 220px;
 	bottom: 24px;
-	background: #6ECE3B;
+	background: #03a1fc;
 	border-radius: 3px;
 	text-align: center;
 	line-height: 40px;
